@@ -1,4 +1,4 @@
-const originalZoom = "0 0 300 500";
+const originalZoom = "0 0 180 335";
 const zoomStepSize = 10;
 const [oMinX, oMinY, oWidth, oHeight] = originalZoom.split(" ").map(Number);
 var dragging = false;
