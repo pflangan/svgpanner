@@ -1,22 +1,41 @@
-const originalZoom = "0 0 100 100";
+const originalZoom = "0 0 300 500";
+const zoomStepSize = 10;
 const [oMinX, oMinY, oWidth, oHeight] = originalZoom.split(" ").map(Number);
 var dragging = false;
 var dragStart = {
   x: null, y: null
 };
+
+function getNode(n, v) {
+  n = document.createElementNS("http://www.w3.org/2000/svg", n);
+  for (var p in v)
+    n.setAttributeNS(null, p.replace(/[A-Z]/g, function(m, p, o, s) { return "-" + m.toLowerCase(); }), v[p]);
+  return n;
+}
+
+function setupPlate() {
+  const shape = document.getElementById("box");
+  for (let rows = 1; rows <= 8 ; rows++) {
+    for (let cols = 1; cols <= 16 ; cols++) {
+      var el = getNode('ellipse', { cx: 20 * rows, cy: 20 * cols, rx: 5, ry: 5, fill:'#' + (Math.min(255, cols*15)).toString(16) + (Math.min(255,rows*10)).toString(16) + (Math.min(255, cols * rows * 5)).toString(16) });
+      shape.appendChild(el);
+      console.log("created ellipse ",cols, rows);
+    }
+  }
+}
+
 $(document).ready(() => {
+    setupPlate();
     $('#zoomout').on('click', (e) => {
       const shape = document.getElementById("box");
       var viewBoxProperties = shape.getAttribute("viewBox");
       console.log(viewBoxProperties);
       var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
       // console.log(minx);
-      width += 10;
-      // minx += 10;
-      // miny += 10;
-      height +=10;
-      width = Math.min(100, height);
-      height = Math.min(100, height);
+      width += zoomStepSize;
+      height += zoomStepSize;
+      width = Math.min(oWidth, height);
+      height = Math.min(oHeight, height);
       viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
       console.log(viewBoxProperties);
       shape.setAttribute("viewBox", viewBoxProperties);
@@ -27,10 +46,10 @@ $(document).ready(() => {
       console.log(viewBoxProperties);
       var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
       // console.log(minx);
-      width -= 10;
+      width -= zoomStepSize;
       // minx -= 10;
       // miny -= 10;
-      height -=10;
+      height -= zoomStepSize;
       minx = Math.max(0, minx);
       miny = Math.max(0, miny);
       viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
@@ -76,9 +95,9 @@ $(document).ready(() => {
         var viewBoxProperties = shape.getAttribute("viewBox");
         console.log(diffX, diffY);
         console.log(viewBoxProperties);
-        if ((minx + diffX) < oWidth && (minx + diffX) >= 0)
+        if ((minx + diffX) <= oWidth && (minx + diffX) >= 0)
           minx += diffX;
-        if ((miny + diffY) < oHeight && (miny + diffY) >= 0)
+        if ((miny + diffY) <= oHeight && (miny + diffY) >= 0)
           miny += diffY;
         
         viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
