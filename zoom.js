@@ -2,6 +2,7 @@ const originalZoom = "0 0 180 335";
 const [oMinX, oMinY, oWidth, oHeight] = originalZoom.split(" ").map(Number);
 const xZoomStepSize = oWidth / 10;
 const yZoomStepSize = oHeight / 10;
+var currentZoom = 100;
 var dragging = false;
 var dragStart = {
   x: null, y: null
@@ -37,6 +38,7 @@ $(document).ready(() => {
       // console.log(minx);
       width += xZoomStepSize;
       height += yZoomStepSize;
+      currentZoom += 10;
       width = Math.min(oWidth, width);
       height = Math.min(oHeight, height);
       viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
@@ -69,7 +71,6 @@ $(document).ready(() => {
       dragging = true;
       const shape = document.getElementById("box");
       var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
-      var currentZoom = oWidth / width;
       // dragStart.x = (minx + e.offsetX) / currentZoom;
       // dragStart.y = (miny + e.offsetY) / currentZoom;
       dragStart.x = e.offsetX;
@@ -90,23 +91,27 @@ $(document).ready(() => {
       if (dragging) {
         const shape = document.getElementById("box");
         var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
-        var currentZoom = oWidth / width;
-        // let endX = (minx + e.offsetX) / currentZoom;
-        // let endY = (miny + e.offsetY) / currentZoom;
         let endX = e.offsetX;
         let endY = e.offsetY;
     //     ${eventLeft / width * originalWidth - originalWidth / 4} 
         let diffX = ((dragStart.x - endX) / viewportWidth) * (oWidth - width);
-        let diffY = ((dragStart.y - endY) / viewportHeight) * height;
+        let diffY = ((dragStart.y - endY) / viewportHeight) * (oHeight - height);
     
         var viewBoxProperties = shape.getAttribute("viewBox");
         console.log(diffX, diffY);
         console.log(viewBoxProperties);
         if ((minx + diffX) <= (oWidth - width))
           minx = Math.max(0, minx + diffX);
+        else if ((minx + diffX) >= oWidth - width)
+          minx = Math.min(oWidth - width, minx + diffX);
+
         if ((miny + diffY) <= oHeight - height)
           miny = Math.max(0, miny + diffY);
-        
+        else if ((miny + diffY) >= oHeight - height)
+          miny = Math.min(oHeight - height, miny + diffY);
+
+        dragStart.x = endX;
+        dragStart.y = endY;
         viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
         // console.log(viewBoxProperties);
         shape.setAttribute("viewBox", viewBoxProperties);
