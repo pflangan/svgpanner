@@ -35,14 +35,25 @@ $(document).ready(() => {
       console.log(viewBoxProperties);
       var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
       // console.log(minx);
-      width += xZoomStepSize;
-      height += yZoomStepSize;
-      width = Math.min(oWidth, width);
-      height = Math.min(oHeight, height);
+      if (minx > 0) {
+        minx = Math.max(0, minx - xZoomStepSize);
+        width = Math.min(oWidth, width + xZoomStepSize/2);
+      } else {
+        width = Math.min(oHeight, width + xZoomStepSize);
+      }
+
+      if (miny > 0) {
+        miny = Math.max(0, miny - (yZoomStepSize));
+        height = Math.min(oHeight, height + yZoomStepSize/2);
+      } else {
+        height = Math.min(oHeight, height + yZoomStepSize);  
+      }
+
       viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
       console.log(viewBoxProperties);
       shape.setAttribute("viewBox", viewBoxProperties);
     });
+
     $('#zoomin').on('click', (e) => {
       const shape = document.getElementById("box");
       var viewBoxProperties = shape.getAttribute("viewBox");
