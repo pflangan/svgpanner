@@ -17,26 +17,32 @@
 			fill: #49b293;
 			border: 1px solid #333;
 		}
+
+		#plate-container {
+			width: 410px;
+		}
 	</style>
 	<script src="zoom.js"></script>
 </head>
 
 <body>
-	<svg id="cols" style="display: block; margin-left: 105px;" height="50" width="300" viewBox="0 -20.5 180 33.5">
-	</svg>
-	<svg id="rows" height="500" width="100" viewBox="-47 0 60 335">
-		<style>
-			.heavy { font: bold 25px sans-serif; }
-		</style>
-	</svg>
-	<svg id="box" style="pointer-events: all;" width="300" height="500" viewBox="0 0 180 335"></svg>
-	<div>
-		<button id="zoomin">+</button>
-		<button id="reset">reset</button>
-		<button id="zoomout">-</button>
+	<div id="plate-container">
 		<div class="slidecontainer">
+			<button id="zoomout">-</button>
 			<input type="range" step="10" min="100" max="160" value="100" class="slider" id="myRange">
+			<button id="zoomin">+</button>
+			<button id="reset">reset</button>
 		</div>
+		<svg id="cols" style="display: block; margin-left: 105px;" height="50" width="300" viewBox="0 -20.5 180 33.5">
+		</svg>
+		<svg id="rows" height="500" width="100" viewBox="-47 0 60 335">
+			<style>
+				.heavy { font: bold 25px sans-serif; }
+			</style>
+		</svg>
+		<svg id="box" style="pointer-events: all;" width="300" height="500" viewBox="0 0 180 335"></svg>
+		<div>
+	</div>
 </body>
 
 </html>

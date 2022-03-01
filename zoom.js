@@ -82,12 +82,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
     // $('#zoomout').on('click', (e) => {
     zoomOut.addEventListener("click", (e) => {
-      optionsProxy.currentZoom -= 10;
+      optionsProxy.currentZoom = optionsProxy.currentZoom - 10;
     }, false);
 
     const zoomIn = document.getElementById("zoomin");
     zoomIn.addEventListener("click", (e) => {
-      optionsProxy.currentZoom -= 10;
+      optionsProxy.currentZoom = optionsProxy.currentZoom + 10
     }, false);
     
     const reset = document.getElementById("reset");
