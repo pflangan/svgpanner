@@ -2,28 +2,14 @@ const originalZoom = "0 0 180 335";
 const originalRowZoom = "-47 0 60 335";
 const originalColZoom = "0 -20.5 180 33.5";
 const [oMinX, oMinY, oWidth, oHeight] = originalZoom.split(" ").map(Number);
+const [oRowMinX, oRowMinY, oRowWidth, oRowHeight] = originalRowZoom.split(" ").map(Number);
+const [oColMinX, oColMinY, oColWidth, oColHeight] = originalColZoom.split(" ").map(Number);
 const xZoomStepSize = oWidth / 10;
 const yZoomStepSize = oHeight / 10;
 const maxZoom = 160;
 var options = {
   currentZoom: 100
 }
-const optionsProxy = new Proxy(options, {
-  set: function (target, key, value) {
-    console.log(target);
-    let oldZoom = target[key];
-    target[key] = value;
-    if (key == 'currentZoom') {
-      if (oldZoom < value) {
-        zoomIn();
-      } else if (oldZoom > value && value != 100) {
-        zoomOut();
-      } else if (value == 100) {
-        resetZoom();
-      }
-    }
-  }
-})
 var dragging = false;
 var dragStart = {  x: null, y: null };
 
@@ -32,6 +18,92 @@ function getNode(n, v) {
   for (var p in v)
     n.setAttributeNS(null, p.replace(/[A-Z]/g, function(m, p, o, s) { return "-" + m.toLowerCase(); }), v[p]);
   return n;
+}
+
+function zoomOut() {
+  const colViewportHeight = document.getElementById('cols').clientHeight;
+  const rowViewportWidth = document.getElementById('rows').clientWidth;
+  const viewportWidth = document.getElementById('box').clientWidth;
+  const viewportHeight = document.getElementById('box').clientHeight;
+
+  if (options.currentZoom >= 100) {
+    const shape = document.getElementById("box");
+    const rowHeader = document.getElementById("rows");
+    const colHeader = document.getElementById("cols");
+    var viewBoxProperties = shape.getAttribute("viewBox");
+    console.log(viewBoxProperties);
+    var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
+    var [rowx, rowy, rowWidth, rowHeight] = rowHeader.getAttribute("viewBox").split(" ").map(Number);
+    var [colx, coly, colWidth, colHeight] = colHeader.getAttribute("viewBox").split(" ").map(Number);
+    // console.log(minx);
+    width = oWidth - (xZoomStepSize * ((options.currentZoom - 100) / 10));
+    height = oHeight - (yZoomStepSize * ((options.currentZoom - 100) / 10));;
+    rowHeight = oRowHeight - (yZoomStepSize * ((options.currentZoom - 100) / 10));;
+    colWidth = oColWidth - (xZoomStepSize * ((options.currentZoom - 100) / 10));
+    colHeight = colViewportHeight * (height / viewportHeight);
+    rowWidth = rowViewportWidth * (width / viewportWidth);
+    width = Math.min(oWidth, width);
+    height = Math.min(oHeight, height);
+    if ((minx + width) > oWidth) {
+      minx = oWidth - width;
+    }
+
+    if ((miny + height) > oHeight) {
+      miny = oHeight - height;
+    }
+
+    viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
+    let rowProperties = `${-(rowWidth - 13)} ${miny} ${rowWidth} ${rowHeight}`;
+    let colProperties = `${minx} ${-(colHeight - 13)} ${colWidth} ${colHeight}`;
+    console.log(viewBoxProperties);
+    shape.setAttribute("viewBox", viewBoxProperties);
+    rowHeader.setAttribute("viewBox", rowProperties);
+    colHeader.setAttribute("viewBox", colProperties);
+  }
+}
+
+function zoomIn() {
+  const colViewportHeight = document.getElementById('cols').clientHeight;
+  const rowViewportWidth = document.getElementById('rows').clientWidth;
+  const viewportWidth = document.getElementById('box').clientWidth;
+  const viewportHeight = document.getElementById('box').clientHeight;
+
+  if (options.currentZoom <= maxZoom) {
+    const shape = document.getElementById("box");
+    const rowHeader = document.getElementById("rows");
+    const colHeader = document.getElementById("cols");
+    var viewBoxProperties = shape.getAttribute("viewBox");
+    console.log(viewBoxProperties);
+    var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
+    var [,,rowWidth, rowHeight] = rowHeader.getAttribute("viewBox").split(" ").map(Number);
+    var [,,colWidth, colHeight] = colHeader.getAttribute("viewBox").split(" ").map(Number);
+    
+    width = oWidth - (xZoomStepSize * ((options.currentZoom - 100) / 10));
+    height = oHeight - (yZoomStepSize * ((options.currentZoom - 100) / 10));;
+    rowHeight = oRowHeight - (yZoomStepSize * ((options.currentZoom - 100) / 10));;
+    colWidth = oColWidth - (xZoomStepSize * ((options.currentZoom - 100) / 10));
+    minx = Math.max(0, minx);
+    miny = Math.max(0, miny);
+    colHeight = colViewportHeight * (height / viewportHeight);
+    rowWidth = rowViewportWidth * (width / viewportWidth);
+    
+    viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
+    rowProperties = `${-(rowWidth - 13)} ${miny} ${rowWidth} ${rowHeight}`;
+    colProperties = `${minx} ${-(colHeight - 13)} ${colWidth} ${colHeight}`;
+    console.log(viewBoxProperties);
+    shape.setAttribute("viewBox", viewBoxProperties);
+    rowHeader.setAttribute("viewBox", rowProperties);
+    colHeader.setAttribute("viewBox", colProperties);
+  }
+}
+
+function resetZoom() {
+  const shape = document.getElementById("box");
+  shape.setAttribute("viewBox", originalZoom);
+  const rowHeader = document.getElementById("rows");
+  rowHeader.setAttribute("viewBox", originalRowZoom);
+  const colHeader = document.getElementById("cols");
+  colHeader.setAttribute("viewBox", originalColZoom);
 }
 
 function setupPlate() {
@@ -71,24 +143,46 @@ document.addEventListener('DOMContentLoaded', function(event) {
     setupPlate();
     const viewportWidth = document.getElementById('box').clientWidth;
     const viewportHeight = document.getElementById('box').clientHeight;
-    const zoomOut = document.getElementById('zoomout');
 
     // Initialize slider
     var slider = document.getElementById("myRange");
 
+    // Monitor zoom setting
+    const optionsProxy = new Proxy(options, {
+      set: function (target, key, value) {
+        console.log(target);
+        let oldZoom = target[key];
+        slider.value = value;
+        target[key] = parseInt(value);
+        if (key == 'currentZoom') {
+          if (oldZoom < value) {
+            zoomIn();
+          } else if (oldZoom > value && value != 100) {
+            zoomOut();
+          } else if (value == 100) {
+            resetZoom();
+          }
+        }
+      }
+    });
+
+
     slider.addEventListener('input', (e) => {
       e.preventDefault();
-      optionsProxy.currentZoom = e.target.value;
+      if (parseInt(e.target.value) >= 100 && parseInt(e.target.value) <= 160) {
+        optionsProxy.currentZoom = parseInt(e.target.value);
+      }
     })
 
     // $('#zoomout').on('click', (e) => {
-    zoomOut.addEventListener("click", (e) => {
-      optionsProxy.currentZoom = optionsProxy.currentZoom - 10;
+      document.getElementById('zoomout').addEventListener("click", (e) => {
+        if (parseInt(optionsProxy.currentZoom) - 10 >= 100)
+          optionsProxy.currentZoom = parseInt(optionsProxy.currentZoom) - 10;
     }, false);
 
-    const zoomIn = document.getElementById("zoomin");
-    zoomIn.addEventListener("click", (e) => {
-      optionsProxy.currentZoom = optionsProxy.currentZoom + 10
+    document.getElementById("zoomin").addEventListener("click", (e) => {
+      if (parseInt(optionsProxy.currentZoom) + 10 <= 160)
+        optionsProxy.currentZoom = parseInt(optionsProxy.currentZoom) + 10
     }, false);
     
     const reset = document.getElementById("reset");
@@ -161,91 +255,3 @@ document.addEventListener('DOMContentLoaded', function(event) {
       }
     }, false);
 });
-
-function zoomOut() {
-  const colViewportHeight = document.getElementById('cols').clientHeight;
-  const rowViewportWidth = document.getElementById('rows').clientWidth;
-  const viewportWidth = document.getElementById('box').clientWidth;
-  const viewportHeight = document.getElementById('box').clientHeight;
-
-  if (optionsProxy.currentZoom >= 100) {
-    const shape = document.getElementById("box");
-    const rowHeader = document.getElementById("rows");
-    const colHeader = document.getElementById("cols");
-    var viewBoxProperties = shape.getAttribute("viewBox");
-    console.log(viewBoxProperties);
-    var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
-    var [rowx, rowy, rowWidth, rowHeight] = rowHeader.getAttribute("viewBox").split(" ").map(Number);
-    var [colx, coly, colWidth, colHeight] = colHeader.getAttribute("viewBox").split(" ").map(Number);
-    // console.log(minx);
-    width += xZoomStepSize;
-    height += yZoomStepSize;
-    rowHeight += yZoomStepSize;
-    colWidth += xZoomStepSize;
-    colHeight = colViewportHeight * (height / viewportHeight);
-    rowWidth = rowViewportWidth * (width / viewportWidth);
-    width = Math.min(oWidth, width);
-    height = Math.min(oHeight, height);
-    if ((minx + width) > oWidth) {
-      minx = oWidth - width;
-    }
-
-    if ((miny + height) > oHeight) {
-      miny = oHeight - height;
-    }
-
-    viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
-    let rowProperties = `${-(rowWidth - 13)} ${miny} ${rowWidth} ${rowHeight}`;
-    let colProperties = `${minx} ${-(colHeight - 13)} ${colWidth} ${colHeight}`;
-    console.log(viewBoxProperties);
-    shape.setAttribute("viewBox", viewBoxProperties);
-    rowHeader.setAttribute("viewBox", rowProperties);
-    colHeader.setAttribute("viewBox", colProperties);
-  }
-}
-
-function zoomIn() {
-  const colViewportHeight = document.getElementById('cols').clientHeight;
-  const rowViewportWidth = document.getElementById('rows').clientWidth;
-  const viewportWidth = document.getElementById('box').clientWidth;
-  const viewportHeight = document.getElementById('box').clientHeight;
-
-  if (optionsProxy.currentZoom <= maxZoom) {
-    const shape = document.getElementById("box");
-    const rowHeader = document.getElementById("rows");
-    const colHeader = document.getElementById("cols");
-    var viewBoxProperties = shape.getAttribute("viewBox");
-    console.log(viewBoxProperties);
-    var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
-    var [,,rowWidth, rowHeight] = rowHeader.getAttribute("viewBox").split(" ").map(Number);
-    var [,,colWidth, colHeight] = colHeader.getAttribute("viewBox").split(" ").map(Number);
-    // console.log(minx);
-    width -= xZoomStepSize;
-    // minx -= 10;
-    // miny -= 10;
-    height -= yZoomStepSize;
-    rowHeight -= yZoomStepSize;
-    colWidth -= xZoomStepSize;
-    minx = Math.max(0, minx);
-    miny = Math.max(0, miny);
-    colHeight = colViewportHeight * (height / viewportHeight);
-    rowWidth = rowViewportWidth * (width / viewportWidth);
-    
-    viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
-    rowProperties = `${-(rowWidth - 13)} ${miny} ${rowWidth} ${rowHeight}`;
-    colProperties = `${minx} ${-(colHeight - 13)} ${colWidth} ${colHeight}`;
-    console.log(viewBoxProperties);
-    shape.setAttribute("viewBox", viewBoxProperties);
-    rowHeader.setAttribute("viewBox", rowProperties);
-    colHeader.setAttribute("viewBox", colProperties);
-  }
-}
-
-function resetZoom() {
-  const shape = document.getElementById("box");
-  shape.setAttribute("viewBox", originalZoom);
-  const rowHeader = document.getElementById("rows");
-  rowHeader.setAttribute("viewBox", originalRowZoom);
-  const colHeader = document.getElementById("cols");
-  colHeader.setAttribute("viewBox", originalColZoom);
-}
