@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     var slider = document.getElementById("myRange");
 
     slider.addEventListener('input', (e) => {
+      e.preventDefault();
       optionsProxy.currentZoom = e.target.value;
     })
 
