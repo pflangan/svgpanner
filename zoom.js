@@ -118,7 +118,7 @@ function setupPlate() {
       shape.appendChild(el);
       if (rows == 1) {
         var text = getNode('text', { x: (20 * columns) - 4, y: 0, fontSize: 15, dominantBaseline: 'hanging'});
-        text.appendChild(document.createTextNode(colStr.charAt(columns - 1)));
+        text.appendChild(document.createTextNode(columns));
         colHeader.appendChild(text);
       }
       if (columns == 1) {
