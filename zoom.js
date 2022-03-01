@@ -5,7 +5,25 @@ const [oMinX, oMinY, oWidth, oHeight] = originalZoom.split(" ").map(Number);
 const xZoomStepSize = oWidth / 10;
 const yZoomStepSize = oHeight / 10;
 const maxZoom = 160;
-var currentZoom = 100;
+var options = {
+  currentZoom: 100
+}
+const optionsProxy = new Proxy(options, {
+  set: function (target, key, value) {
+    console.log(target);
+    let oldZoom = target[key];
+    target[key] = value;
+    if (key == 'currentZoom') {
+      if (oldZoom < value) {
+        zoomIn();
+      } else if (oldZoom > value && value != 100) {
+        zoomOut();
+      } else if (value == 100) {
+        resetZoom();
+      }
+    }
+  }
+})
 var dragging = false;
 var dragStart = {  x: null, y: null };
 
@@ -52,96 +70,30 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
     setupPlate();
     const viewportWidth = document.getElementById('box').clientWidth;
-    const colViewportHeight = document.getElementById('cols').clientHeight;
-    const rowViewportWidth = document.getElementById('rows').clientWidth;
     const viewportHeight = document.getElementById('box').clientHeight;
     const zoomOut = document.getElementById('zoomout');
 
+    // Initialize slider
+    var slider = document.getElementById("myRange");
+
+    slider.addEventListener('input', (e) => {
+      optionsProxy.currentZoom = e.target.value;
+    })
+
     // $('#zoomout').on('click', (e) => {
-    zoomOut.addEventListener("click", (e) => { 
-      if (currentZoom > 100) {
-        const shape = document.getElementById("box");
-        const rowHeader = document.getElementById("rows");
-        const colHeader = document.getElementById("cols");
-        var viewBoxProperties = shape.getAttribute("viewBox");
-        console.log(viewBoxProperties);
-        var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
-        var [rowx, rowy, rowWidth, rowHeight] = rowHeader.getAttribute("viewBox").split(" ").map(Number);
-        var [colx, coly, colWidth, colHeight] = colHeader.getAttribute("viewBox").split(" ").map(Number);
-        // console.log(minx);
-        width += xZoomStepSize;
-        height += yZoomStepSize;
-        rowHeight += yZoomStepSize;
-        colWidth += xZoomStepSize;
-        colHeight = colViewportHeight * (height / viewportHeight);
-        rowWidth = rowViewportWidth * (width / viewportWidth);
-        currentZoom -= 10;
-        width = Math.min(oWidth, width);
-        height = Math.min(oHeight, height);
-        if ((minx + width) > oWidth) {
-          minx = oWidth - width;
-        }
-
-        if ((miny + height) > oHeight) {
-          miny = oHeight - height;
-        }
-
-        viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
-        let rowProperties = `${-(rowWidth - 13)} ${miny} ${rowWidth} ${rowHeight}`;
-        let colProperties = `${minx} ${-(colHeight - 13)} ${colWidth} ${colHeight}`;
-        console.log(viewBoxProperties);
-        shape.setAttribute("viewBox", viewBoxProperties);
-        rowHeader.setAttribute("viewBox", rowProperties);
-        colHeader.setAttribute("viewBox", colProperties);
-      }
+    zoomOut.addEventListener("click", (e) => {
+      optionsProxy.currentZoom -= 10;
     }, false);
 
     const zoomIn = document.getElementById("zoomin");
-    // $('#zoomin').on('click', (e) => {
     zoomIn.addEventListener("click", (e) => {
-      if (currentZoom < maxZoom) {
-        const shape = document.getElementById("box");
-        const rowHeader = document.getElementById("rows");
-        const colHeader = document.getElementById("cols");
-        var viewBoxProperties = shape.getAttribute("viewBox");
-        const textEls = document.getElementsByTagName('text');
-        console.log(viewBoxProperties);
-        var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
-        var [,,rowWidth, rowHeight] = rowHeader.getAttribute("viewBox").split(" ").map(Number);
-        var [,,colWidth, colHeight] = colHeader.getAttribute("viewBox").split(" ").map(Number);
-        // console.log(minx);
-        width -= xZoomStepSize;
-        // minx -= 10;
-        // miny -= 10;
-        height -= yZoomStepSize;
-        rowHeight -= yZoomStepSize;
-        colWidth -= xZoomStepSize;
-        currentZoom += 10;
-        minx = Math.max(0, minx);
-        miny = Math.max(0, miny);
-        colHeight = colViewportHeight * (height / viewportHeight);
-        rowWidth = rowViewportWidth * (width / viewportWidth);
-        
-        viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
-        rowProperties = `${-(rowWidth - 13)} ${miny} ${rowWidth} ${rowHeight}`;
-        colProperties = `${minx} ${-(colHeight - 13)} ${colWidth} ${colHeight}`;
-        console.log(viewBoxProperties);
-        shape.setAttribute("viewBox", viewBoxProperties);
-        rowHeader.setAttribute("viewBox", rowProperties);
-        colHeader.setAttribute("viewBox", colProperties);
-      }
+      optionsProxy.currentZoom -= 10;
     }, false);
     
     const reset = document.getElementById("reset");
     // $("#reset").on("click", (e) => {
     reset.addEventListener("click", (e) => {
-      const shape = document.getElementById("box");
-      shape.setAttribute("viewBox", originalZoom);
-      const rowHeader = document.getElementById("rows");
-      rowHeader.setAttribute("viewBox", originalRowZoom);
-      const colHeader = document.getElementById("cols");
-      colHeader.setAttribute("viewBox", originalColZoom);
-      currentZoom = 100;
+      optionsProxy.currentZoom = 100;
     }, false);
     
     const box = document.getElementById("box");
@@ -150,11 +102,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
       dragging = true;
       const shape = document.getElementById("box");
       var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
-      // dragStart.x = (minx + e.offsetX) / currentZoom;
-      // dragStart.y = (miny + e.offsetY) / currentZoom;
+      // dragStart.x = (minx + e.offsetX) / optionsProxy.currentZoom;
+      // dragStart.y = (miny + e.offsetY) / optionsProxy.currentZoom;
       dragStart.x = e.offsetX;
       dragStart.y = e.offsetY;
-      console.log(currentZoom);
+      console.log(optionsProxy.currentZoom);
     }, false);
     
     // $(document).on("mouseup", (e) => {
@@ -208,3 +160,91 @@ document.addEventListener('DOMContentLoaded', function(event) {
       }
     }, false);
 });
+
+function zoomOut() {
+  const colViewportHeight = document.getElementById('cols').clientHeight;
+  const rowViewportWidth = document.getElementById('rows').clientWidth;
+  const viewportWidth = document.getElementById('box').clientWidth;
+  const viewportHeight = document.getElementById('box').clientHeight;
+
+  if (optionsProxy.currentZoom >= 100) {
+    const shape = document.getElementById("box");
+    const rowHeader = document.getElementById("rows");
+    const colHeader = document.getElementById("cols");
+    var viewBoxProperties = shape.getAttribute("viewBox");
+    console.log(viewBoxProperties);
+    var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
+    var [rowx, rowy, rowWidth, rowHeight] = rowHeader.getAttribute("viewBox").split(" ").map(Number);
+    var [colx, coly, colWidth, colHeight] = colHeader.getAttribute("viewBox").split(" ").map(Number);
+    // console.log(minx);
+    width += xZoomStepSize;
+    height += yZoomStepSize;
+    rowHeight += yZoomStepSize;
+    colWidth += xZoomStepSize;
+    colHeight = colViewportHeight * (height / viewportHeight);
+    rowWidth = rowViewportWidth * (width / viewportWidth);
+    width = Math.min(oWidth, width);
+    height = Math.min(oHeight, height);
+    if ((minx + width) > oWidth) {
+      minx = oWidth - width;
+    }
+
+    if ((miny + height) > oHeight) {
+      miny = oHeight - height;
+    }
+
+    viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
+    let rowProperties = `${-(rowWidth - 13)} ${miny} ${rowWidth} ${rowHeight}`;
+    let colProperties = `${minx} ${-(colHeight - 13)} ${colWidth} ${colHeight}`;
+    console.log(viewBoxProperties);
+    shape.setAttribute("viewBox", viewBoxProperties);
+    rowHeader.setAttribute("viewBox", rowProperties);
+    colHeader.setAttribute("viewBox", colProperties);
+  }
+}
+
+function zoomIn() {
+  const colViewportHeight = document.getElementById('cols').clientHeight;
+  const rowViewportWidth = document.getElementById('rows').clientWidth;
+  const viewportWidth = document.getElementById('box').clientWidth;
+  const viewportHeight = document.getElementById('box').clientHeight;
+
+  if (optionsProxy.currentZoom <= maxZoom) {
+    const shape = document.getElementById("box");
+    const rowHeader = document.getElementById("rows");
+    const colHeader = document.getElementById("cols");
+    var viewBoxProperties = shape.getAttribute("viewBox");
+    console.log(viewBoxProperties);
+    var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
+    var [,,rowWidth, rowHeight] = rowHeader.getAttribute("viewBox").split(" ").map(Number);
+    var [,,colWidth, colHeight] = colHeader.getAttribute("viewBox").split(" ").map(Number);
+    // console.log(minx);
+    width -= xZoomStepSize;
+    // minx -= 10;
+    // miny -= 10;
+    height -= yZoomStepSize;
+    rowHeight -= yZoomStepSize;
+    colWidth -= xZoomStepSize;
+    minx = Math.max(0, minx);
+    miny = Math.max(0, miny);
+    colHeight = colViewportHeight * (height / viewportHeight);
+    rowWidth = rowViewportWidth * (width / viewportWidth);
+    
+    viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
+    rowProperties = `${-(rowWidth - 13)} ${miny} ${rowWidth} ${rowHeight}`;
+    colProperties = `${minx} ${-(colHeight - 13)} ${colWidth} ${colHeight}`;
+    console.log(viewBoxProperties);
+    shape.setAttribute("viewBox", viewBoxProperties);
+    rowHeader.setAttribute("viewBox", rowProperties);
+    colHeader.setAttribute("viewBox", colProperties);
+  }
+}
+
+function resetZoom() {
+  const shape = document.getElementById("box");
+  shape.setAttribute("viewBox", originalZoom);
+  const rowHeader = document.getElementById("rows");
+  rowHeader.setAttribute("viewBox", originalRowZoom);
+  const colHeader = document.getElementById("cols");
+  colHeader.setAttribute("viewBox", originalColZoom);
+}
