@@ -1,6 +1,6 @@
 const originalZoom = "0 0 180 335";
 const originalRowZoom = "0 0 3 335";
-const originalColZoom = "0 0 180 10";
+const originalColZoom = "0 0 180 1";
 const [oMinX, oMinY, oWidth, oHeight] = originalZoom.split(" ").map(Number);
 const xZoomStepSize = oWidth / 10;
 const yZoomStepSize = oHeight / 10;
@@ -26,7 +26,7 @@ function setupPlate() {
       var el = getNode('ellipse', { cx: 20 * columns, cy: 20 * rows, rx: 5, ry: 5, fill:'#' + (Math.min(255, rows*15)).toString(16).padStart(2, "0") + (Math.min(255,columns*10)).toString(16).padStart(2, "0") + (Math.min(255, rows * columns * 5)).toString(16).padStart(2, "0") });
       shape.appendChild(el);
       if (rows == 1) {
-        var text = getNode('text', { x: (10 + (18 * columns)), y: 10, fontSize: 15});
+        var text = getNode('rect', { x: (18 * columns) + 5, y: 0, width: 10, height: 15, fill: '#000'});
         text.appendChild(document.createTextNode(colStr.charAt(columns - 1)));
         colHeader.appendChild(text);
       }
@@ -161,8 +161,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
       if (dragging) {
         const shape = document.getElementById("box");
         const rowHeader = document.getElementById("rows");
+        const colHeader = document.getElementById("cols");
         var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
         var [rowx, rowy, rowWidth, rowHeight] = rowHeader.getAttribute("viewBox").split(" ").map(Number);
+        var [colx, coly, colWidth, colHeight] = colHeader.getAttribute("viewBox").split(" ").map(Number);
         let endX = e.offsetX;
         let endY = e.offsetY;
     //     ${eventLeft / width * originalWidth - originalWidth / 4} 
@@ -185,10 +187,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
         dragStart.x = endX;
         dragStart.y = endY;
         viewBoxProperties = `${minx} ${miny} ${width} ${height}`;
-        rowProperties = `${rowx} ${miny} ${rowWidth} ${rowHeight}`
+        let rowProperties = `${rowx} ${miny} ${rowWidth} ${rowHeight}`;
+        let colProperties = `${minx} ${coly} ${colWidth} ${colHeight}`;
         // console.log(viewBoxProperties);
         shape.setAttribute("viewBox", viewBoxProperties);
         rowHeader.setAttribute("viewBox", rowProperties);
+        colHeader.setAttribute("viewBox", colProperties);
       }
     }, false);
 });
