@@ -17,13 +17,21 @@
 			fill: #49b293;
 			border: 1px solid #333;
 		}
-
+		
 		#plate-container {
 			width: 410px;
 		}
 
 		.slidecontainer {
 			float: right;
+		}
+
+		.zoom-input-container {
+			text-align: center;
+		}
+
+		#zoom-percentage {
+			width: 50px;
 		}
 	</style>
 	<script src="zoom.js"></script>
@@ -36,6 +44,9 @@
 			<input type="range" step="10" min="100" max="160" value="100" class="slider" id="myRange">
 			<button id="zoomin">+</button>
 			<button id="reset">reset</button>
+			<div class="zoom-input-container">
+				<input value="100%" type="text" id="zoom-percentage">
+			</div>
 		</div>
 		<svg id="cols" style="display: block; margin-left: 105px;" height="50" width="300" viewBox="0 -20.5 180 33.5">
 		</svg>

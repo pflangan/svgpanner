@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     setupPlate();
     const viewportWidth = document.getElementById('box').clientWidth;
     const viewportHeight = document.getElementById('box').clientHeight;
+    const zoomInput = document.getElementById('zoom-percentage');
 
     // Initialize slider
     var slider = document.getElementById("myRange");
@@ -154,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         let oldZoom = target[key];
         slider.value = value;
         target[key] = parseInt(value);
+        zoomInput.value = value + '%';
         if (key == 'currentZoom') {
           if (oldZoom < value) {
             zoomIn();
@@ -166,6 +168,25 @@ document.addEventListener('DOMContentLoaded', function(event) {
       }
     });
 
+
+    zoomInput.addEventListener('change', (e) => {
+      let inputZoom = parseInt(e.target.value);
+      if (inputZoom >= 100 && inputZoom <= 160 && inputZoom != optionsProxy.currentZoom) {
+        optionsProxy.currentZoom = inputZoom;
+      } else {
+        e.target.value = optionsProxy.currentZoom + '%';
+      }
+    });
+    
+    zoomInput.addEventListener('keydown', (e) => {
+      if (e.key == "ArrowDown" && optionsProxy.currentZoom > 100) {
+        e.preventDefault();
+        optionsProxy.currentZoom = optionsProxy.currentZoom - 10;
+      } else if (e.key == "ArrowUp" && optionsProxy.currentZoom < 160) {
+        e.preventDefault();
+        optionsProxy.currentZoom = optionsProxy.currentZoom + 10;
+      }
+    });
 
     slider.addEventListener('input', (e) => {
       e.preventDefault();
@@ -208,6 +229,14 @@ document.addEventListener('DOMContentLoaded', function(event) {
     document.addEventListener("mouseup", (e) => {
       if (dragging)
         dragging = false;
+    }, false);
+
+    box.addEventListener('mouseenter', (e) => {
+      if (options.currentZoom > 100) {
+        e.target.style.setProperty('cursor', 'move');
+      } else {
+        e.target.style.setProperty('cursor', 'default');
+      }
     }, false);
     
     // $("#box").on("mouseleave", (e) => {
