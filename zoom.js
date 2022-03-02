@@ -10,8 +10,9 @@ const maxZoom = 160;
 var options = {
   currentZoom: 100
 }
+var dragEnabled = false;
 var dragging = false;
-var dragStart = {  x: null, y: null };
+var dragStart = { x: null, y: null };
 
 function getNode(n, v) {
   n = document.createElementNS("http://www.w3.org/2000/svg", n);
@@ -168,6 +169,13 @@ document.addEventListener('DOMContentLoaded', function(event) {
       }
     });
 
+    document.getElementById("bs-move-cursor").addEventListener('click', (e) => {
+      const body = document.querySelector('body');
+      const container = document.querySelector('.cursor-toggle');
+      body.classList.toggle('move');
+      container.classList.toggle('active');
+      dragEnabled = !dragEnabled; 
+    }, false);
 
     zoomInput.addEventListener('change', (e) => {
       let inputZoom = parseInt(e.target.value);
@@ -215,38 +223,34 @@ document.addEventListener('DOMContentLoaded', function(event) {
     const box = document.getElementById("box");
     // $("#box").on("mousedown", (e) => {
     box.addEventListener("mousedown", (e) => {
-      dragging = true;
-      const shape = document.getElementById("box");
-      var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
-      // dragStart.x = (minx + e.offsetX) / optionsProxy.currentZoom;
-      // dragStart.y = (miny + e.offsetY) / optionsProxy.currentZoom;
-      dragStart.x = e.offsetX;
-      dragStart.y = e.offsetY;
-      console.log(optionsProxy.currentZoom);
+      if (dragEnabled) {
+        dragging = true;
+        const shape = document.getElementById("box");
+        var [minx, miny, width, height] = shape.getAttribute("viewBox").split(" ").map(Number);
+        // dragStart.x = (minx + e.offsetX) / optionsProxy.currentZoom;
+        // dragStart.y = (miny + e.offsetY) / optionsProxy.currentZoom;
+        dragStart.x = e.offsetX;
+        dragStart.y = e.offsetY;
+        console.log(optionsProxy.currentZoom);
+      }
     }, false);
     
     // $(document).on("mouseup", (e) => {
     document.addEventListener("mouseup", (e) => {
-      if (dragging)
+      if (dragEnabled && dragging) {
         dragging = false;
-    }, false);
-
-    box.addEventListener('mouseenter', (e) => {
-      if (options.currentZoom > 100) {
-        e.target.style.setProperty('cursor', 'move');
-      } else {
-        e.target.style.setProperty('cursor', 'default');
       }
     }, false);
     
     // $("#box").on("mouseleave", (e) => {
     box.addEventListener("mouseleave", (e) => {
-      dragging = false;
+      if (dragEnabled)
+        dragging = false;
     }, false);
     
     // $("#box").on("mousemove", (e) => {
     box.addEventListener("mousemove", (e) => {
-      if (dragging) {
+      if (dragging && dragEnabled) {
         const shape = document.getElementById("box");
         const rowHeader = document.getElementById("rows");
         const colHeader = document.getElementById("cols");
