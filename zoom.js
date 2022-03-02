@@ -117,8 +117,8 @@ function setupPlate() {
       var el = getNode('ellipse', { cx: 20 * columns, cy: 20 * rows, rx: 5, ry: 5, fill:'#' + (Math.min(255, rows*15)).toString(16).padStart(2, "0") + (Math.min(255,columns*10)).toString(16).padStart(2, "0") + (Math.min(255, rows * columns * 5)).toString(16).padStart(2, "0") });
       shape.appendChild(el);
       if (rows == 1) {
-        var text = getNode('text', { x: (20 * columns) - 4, y: 0, fontSize: 15, alignmentBaseline: 'hanging'});
-        text.appendChild(document.createTextNode(colStr.charAt(columns - 1)));
+        var text = getNode('text', { x: (20 * columns) - 4, y: 0, fontSize: 15, dominantBaseline: 'hanging'});
+        text.appendChild(document.createTextNode(columns));
         colHeader.appendChild(text);
       }
       if (columns == 1) {
