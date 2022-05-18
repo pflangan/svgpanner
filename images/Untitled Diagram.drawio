@@ -1,1 +1,136 @@
-<mxfile host="app.diagrams.net" modified="2022-05-17T10:44:33.228Z" agent="5.0 (Windows)" version="18.0.5" etag="T5rUdSdG5LoqEwjwfVEs" type="github"><diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">7VhZc9MwEP41Hp5gfBQnecRp0wKhU2ihw6NiK7aI7DWynINfzyqWYzsOOYD0yDQv0a43K2m/b4/YcPrx/FKQNPoEAeWGbQZzwzk3bNuybQe/lGZRaLq9bqEIBQu0UaW4Zb+oVppam7OAZg1DCcAlS5tKH5KE+rKhI0LArGk2Bt7cNSUhbSlufcLb2nsWyEjfwu5U+ivKwqjc2XJ7xZOYlMb6JllEApjVVM6F4fQFgCxW8bxPuQpeGZf794t7Ppy4lx8+Zz/JV+/j3fW314WzwSE/WV1B0ET+X9d24XpKeK7jpe8qF2UABeRJQJUT03C8SMYclxYuf1ApFxpwkktAFQgZQQgJ4UOAVNuNIZHazFIyTYJ3CliURxz8SaEaMM71Hihp+y5KmRQwWWGnHKyAUMacjCj3iD8JlwftAweBjxJIqHIVIBn0XarDXVRab8/YagwyyIVPt9jpbJFEhHSbP7ewU+er8VQjd0khplIs0EBQTiSbNslMdE6EK7sKd1xo6A+ggdOiwZDEqcp6oFnySuJqBmKyhRsKl1nEJL1NyTJAMywnTb7UeYBX9UJOskyjuAPkw0CaUiHpfGtYy6euzu2yuGlxVlUKq0z/qFYlzswjAXHWAuI7Fs+XlPyXlHT3TMmyY+3MSU2Wkhh7p6j2dAMskTUTGI8zPNg6dVYb/j2b3rbYdA0tMu3G41nT7ZHI1DmMS9aT55L7hxbhcgyDNxK4CtUq5XkYIlnQXWI4g3btiiAe5dnudtHAWDFoQGLGVbyuKJ9SyXyyoakQzkLc99xHuKnYTB7ckiUhSm4l3S3JivX3iM2m02w2K7nebcwN3aZ7rG7TaWF6g+gV0NkmX+J7Yh3fsddA6D12y+/uU6SfdQl+8I5fVtPdLd/as0xr9phvHPw0CPT0p4DeXjPlyxhwHIbZpzYIlCes8cnL+ag9CYxykSwHAcjlyySwbRKwNzWhB50EykJYA/ULTQlDMM3hKc4B6//8z5zHngPKStGEgKuY2maRYSeGwfos5ljHwwDF6k1tUQqr993OxW8=</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-05-18T07:37:48.616Z" agent="5.0 (Windows)" etag="tkZAQYcU4x4tV4oEkBYX" version="18.0.5" type="github">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="964" dy="1866" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-8" value="Transfer existing Certificate" style="swimlane;fontSize=12;fontFamily=Tahoma;startSize=23;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="100" y="-1120" width="300" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-7" value="Select Healthlink account" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" parent="wnB78xGuVFcD3B3UjEWW-8" vertex="1">
+          <mxGeometry x="30" y="100" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-3" value="Login to Healthlink Manager" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" parent="wnB78xGuVFcD3B3UjEWW-8" vertex="1">
+          <mxGeometry x="30" y="50" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-12" value="Navigate to certificates page" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" parent="wnB78xGuVFcD3B3UjEWW-8" vertex="1">
+          <mxGeometry x="30" y="150" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=30;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-8" source="WIyWlLk6GJQsqaUBKTNV-7" target="WIyWlLk6GJQsqaUBKTNV-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-11" value="Browse for certificate on file system" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" parent="wnB78xGuVFcD3B3UjEWW-8" vertex="1">
+          <mxGeometry x="30" y="200" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-2" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=30;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-8" source="WIyWlLk6GJQsqaUBKTNV-12" target="WIyWlLk6GJQsqaUBKTNV-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-0" value="Click Save changes" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-8">
+          <mxGeometry x="30" y="250" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=30;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-8" source="WIyWlLk6GJQsqaUBKTNV-11" target="wnB78xGuVFcD3B3UjEWW-0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-2" value="" style="rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=classic;endFill=1;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;edgeStyle=orthogonalEdgeStyle;" parent="wnB78xGuVFcD3B3UjEWW-8" source="WIyWlLk6GJQsqaUBKTNV-3" target="WIyWlLk6GJQsqaUBKTNV-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="110" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-4" value="Upload certificate to database" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=12;fillColor=#d5e8d4;strokeColor=#82b366;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-8">
+          <mxGeometry x="30" y="300" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-7" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-8" source="wnB78xGuVFcD3B3UjEWW-0" target="wnB78xGuVFcD3B3UjEWW-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-5" value="Associate certificate with Healthlink account" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=12;fillColor=#d5e8d4;strokeColor=#82b366;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-8">
+          <mxGeometry x="30" y="360" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-6" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-8" source="wnB78xGuVFcD3B3UjEWW-4" target="wnB78xGuVFcD3B3UjEWW-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-9" value="List certificate and certificateId on Healthlink Manager" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=12;fillColor=#d5e8d4;strokeColor=#82b366;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-8">
+          <mxGeometry x="30" y="420" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-10" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-8" source="wnB78xGuVFcD3B3UjEWW-5" target="wnB78xGuVFcD3B3UjEWW-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=12;fontColor=#009900;endArrow=classic;endFill=1;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-8" source="wnB78xGuVFcD3B3UjEWW-31" target="wnB78xGuVFcD3B3UjEWW-62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-31" value="Copy &lt;font color=&quot;#FF0000&quot;&gt;&lt;b&gt;certificateId&lt;/b&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;rounded=1;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-8">
+          <mxGeometry x="30" y="480" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;endArrow=classic;endFill=1;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-8" source="wnB78xGuVFcD3B3UjEWW-9" target="wnB78xGuVFcD3B3UjEWW-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-62" value="Delete certificate from Sharepoint" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-8">
+          <mxGeometry x="30" y="531" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-33" value="Transfer corresponding password" style="swimlane;fontSize=12;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="440" y="-1120" width="300" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-34" value="Navigate to &lt;b&gt;INSERT_NAME &lt;/b&gt;key vault&lt;b&gt;&lt;br&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-33">
+          <mxGeometry x="30" y="200" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-35" value="Login to Azure Portal" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-33">
+          <mxGeometry x="30" y="150" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-36" value="Select secrets" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-33">
+          <mxGeometry x="30" y="250" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-37" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=30;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-33" source="wnB78xGuVFcD3B3UjEWW-34" target="wnB78xGuVFcD3B3UjEWW-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-38" value="Click Generate/Import" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-33">
+          <mxGeometry x="30" y="300" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-39" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=30;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-33" source="wnB78xGuVFcD3B3UjEWW-36" target="wnB78xGuVFcD3B3UjEWW-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-40" value="Name: &lt;b&gt;&lt;font color=&quot;#FF0000&quot;&gt;certificateId&lt;/font&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-33">
+          <mxGeometry x="30" y="350" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-41" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=30;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-33" source="wnB78xGuVFcD3B3UjEWW-38" target="wnB78xGuVFcD3B3UjEWW-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-42" value="" style="rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=classic;endFill=1;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-33" source="wnB78xGuVFcD3B3UjEWW-35" target="wnB78xGuVFcD3B3UjEWW-34">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="110" y="343" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-44" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-33" source="wnB78xGuVFcD3B3UjEWW-40" target="wnB78xGuVFcD3B3UjEWW-54">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="140" y="493.0000000000002" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Lucida Console;fontSize=12;fontColor=#009900;endArrow=classic;endFill=1;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-33" source="wnB78xGuVFcD3B3UjEWW-54" target="wnB78xGuVFcD3B3UjEWW-59">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-54" value="Value: &lt;font color=&quot;#009900&quot;&gt;&lt;b&gt;password&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-33">
+          <mxGeometry x="30" y="400" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontFamily=Lucida Console;fontSize=12;endArrow=classic;endFill=1;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-33" source="wnB78xGuVFcD3B3UjEWW-55" target="wnB78xGuVFcD3B3UjEWW-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-55" value="Open excel passwords file" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-33">
+          <mxGeometry x="30" y="50" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Lucida Console;fontSize=12;endArrow=classic;endFill=1;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-33" source="wnB78xGuVFcD3B3UjEWW-56" target="wnB78xGuVFcD3B3UjEWW-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-56" value="Copy &lt;font color=&quot;#009900&quot;&gt;&lt;b&gt;password &lt;/b&gt;&lt;/font&gt;for certificate" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-33">
+          <mxGeometry x="30" y="100" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=12;fontColor=#009900;endArrow=classic;endFill=1;" edge="1" parent="wnB78xGuVFcD3B3UjEWW-33" source="wnB78xGuVFcD3B3UjEWW-59" target="wnB78xGuVFcD3B3UjEWW-61">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-59" value="Click Create" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-33">
+          <mxGeometry x="30" y="450" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wnB78xGuVFcD3B3UjEWW-61" value="Delete password from excel" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontFamily=Helvetica;" vertex="1" parent="wnB78xGuVFcD3B3UjEWW-33">
+          <mxGeometry x="30" y="500" width="240" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
